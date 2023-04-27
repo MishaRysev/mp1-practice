@@ -39,5 +39,5 @@ class Constellation_library {
 };
 
 std::string read_path();
-void choice(Constellation_library* lib);
+void choice(Constellation_library& lib);
 #endif
