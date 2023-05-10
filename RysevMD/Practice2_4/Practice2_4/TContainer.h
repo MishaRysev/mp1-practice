@@ -4,32 +4,46 @@
 using namespace std;
 
 template <typename T>
-class Tcontainer {
+class TContainer {
 private:
-	int max_size;
-	int step = 10;
+	int MaxSize;
+	int step;
 	int poz = 0;
+	int size;
 	T* elements;
-public:
-	int size = 0;
-	Tcontainer(int _max_size) {
-		max_size = _max_size;
-		elements = new T[max_size];
+	
+	void realloc() {
+		MaxSize += step;
+		T* tmp = new T[MaxSize];
+		for (int i = 0; i < size; i++) {
+			tmp[i] = elements[i];
+		}
+		delete[] elements;
+		elements = tmp;
 	}
-	~Tcontainer() { delete[] elements; }
+public:
+	TContainer(int _MaxSize) {
+		MaxSize = _MaxSize;
+		step = 0.1 * MaxSize;
+		size = 0;
+		elements = new T[MaxSize];
+	}
+	~TContainer() { delete[] elements; }
 
 	T& operator[](int ind) { return elements[ind]; }
 
-	void set_poz(int n) { poz = n; }
-	int get_poz() { return poz; }
+	int GetPoz() { return poz; }
+	int GetSize() { return size; }
+	int GetMSize() { return MaxSize; }
 
-	// переход к следущему/передыдущему
-	void next() { poz = (poz + 1) % max_size; }
-	void back() { poz = (poz - 1) % max_size; }  
+	// РїРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓС‰РµРјСѓ/РїРµСЂРµРґС‹РґСѓС‰РµРјСѓ
+	void next() { poz = (poz + 1) % MaxSize; }
+	void back() { poz = (poz - 1) % MaxSize; }
 
-	 // -----вставка/удаление перед/после текущего-----
-	void pozins(const T& element, int n = 0) { // n = 1 для вставки после
+	// -----РІСЃС‚Р°РІРєР°/СѓРґР°Р»РµРЅРёРµ РїРµСЂРµРґ/РїРѕСЃР»Рµ С‚РµРєСѓС‰РµРіРѕ-----
+	void PozIns(const T& element, int n = 0) { // n = 1 РґР»СЏ РІСЃС‚Р°РІРєРё РїРѕСЃР»Рµ
 		int tmp = size - 1;
+		if (size == MaxSize) realloc();
 		for (int i = size - 1; i > poz - n; i--) {
 			elements[i + 1] = elements[i];
 			tmp = i;
@@ -38,15 +52,16 @@ public:
 		size += 1;
 		elements[poz] = element;
 	}
-	void pozrem(int n = 1) { // n = -1 для удаления после
+	void PozRem(int n = 1) { // n = -1 РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РїРѕСЃР»Рµ
 		for (int i = poz + n; i < size; i++) {
 			elements[i] = elements[i + 1];
 		}
 		size -= 1;
 	}
 
-	// -----вставка/удаление из любой позиции-----
+	// -----РІСЃС‚Р°РІРєР°/СѓРґР°Р»РµРЅРёРµ РёР· Р»СЋР±РѕР№ РїРѕР·РёС†РёРё-----
 	void insert(const T& element, int index) {
+		if (size == MaxSize) realloc();
 		for (int i = size - 1; i >= index; i--) {
 			elements[i + 1] = elements[i];
 		}
@@ -55,12 +70,11 @@ public:
 		elements[poz] = element;
 	}
 	void remove(int index) {
-		for (int i = 0; i < size; i++) {
+		for (int i = index; i < size; i++) {
 			elements[i] = elements[i + 1];
 		}
 		size -= 1;
 	}
-};
+};  
 
-#endif 
-
+#endif
