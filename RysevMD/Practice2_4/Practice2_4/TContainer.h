@@ -7,7 +7,7 @@ template <typename T>
 class TContainer {
 private:
 	int MaxSize;
-	int step;
+	int step = 50;
 	int poz = 0;
 	int size;
 	T* elements;
@@ -22,6 +22,11 @@ private:
 		elements = tmp;
 	}
 public:
+	TContainer() {
+		MaxSize += step;
+		elements = new T[MaxSize];
+		step = MaxSize * 0.1;
+	}
 	TContainer(int _MaxSize) {
 		MaxSize = _MaxSize;
 		step = 0.1 * MaxSize;
@@ -31,10 +36,19 @@ public:
 	~TContainer() { delete[] elements; }
 
 	T& operator[](int ind) { return elements[ind]; }
+	friend istream& operator >> (istream& in, T& element) {
+		in >> element;
+		size += 1;
+		return in;
+	}
+	friend ostream& operator << (istream& out, const T& element) {
+		out << element;
+		return out;
+	}
 
-	int GetPoz() { return poz; }
-	int GetSize() { return size; }
-	int GetMSize() { return MaxSize; }
+	int GetPoz() const { return poz; }
+	int GetSize() const { return size; }
+	int GetMSize() const { return MaxSize; }
 
 	// переход к следущему/передыдущему
 	void next() { poz = (poz + 1) % MaxSize; }

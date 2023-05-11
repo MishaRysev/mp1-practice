@@ -5,8 +5,8 @@
 using namespace std;
 
 int main() {
-	TContainer <TProduct> prod(1);
-	TProduct p(12321, "тест", 50, 0);
-	prod.insert(p, 0);
+
+	system("chcp 1251");
+
 	return 0;
 }

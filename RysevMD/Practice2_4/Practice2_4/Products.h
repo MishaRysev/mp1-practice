@@ -12,10 +12,25 @@ struct TProduct {
 	TProduct();
 };
 
+struct Pair {
+	TProduct product;
+	int count;
+};
+
 class TProductBase {
 private:
-	int count = 25;
-	
+	int count;
+	TContainer <Pair> pairs;
+public:
+	TProductBase(string& path);
+	~TProductBase();
+
+	long int FindCode(string name) const;
+	string FindName(long int code) const;
+
+	friend ostream& operator << (ostream& out, const TProduct element);
+	friend ostream& operator << (ostream& out, const Pair element);
+	friend istream& operator >> (istream& out, TProduct element);
 };
 #endif
 
