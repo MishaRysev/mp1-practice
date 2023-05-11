@@ -21,9 +21,15 @@
     <ClCompile Include="TContainer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Products.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TContainer.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Products.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

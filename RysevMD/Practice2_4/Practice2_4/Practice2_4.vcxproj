@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Products.cpp" />
     <ClCompile Include="TContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Products.h" />
     <ClInclude Include="TContainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
