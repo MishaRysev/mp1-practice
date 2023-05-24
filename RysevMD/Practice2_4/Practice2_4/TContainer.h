@@ -7,8 +7,8 @@ template <typename T>
 class TContainer {
 private:
 	int MaxSize;
-	int step = 50;
-	int poz = 0;
+	int step;
+	int pos;
 	int size;
 	T* elements;
 	
@@ -23,6 +23,10 @@ private:
 	}
 public:
 	TContainer() {
+		MaxSize = 0;
+		size = 0;
+		step = 50;
+		pos = 0;
 		MaxSize += step;
 		elements = new T[MaxSize];
 		step = MaxSize * 0.1;
@@ -33,55 +37,67 @@ public:
 		size = 0;
 		elements = new T[MaxSize];
 	}
-	~TContainer() { delete[] elements; }
-
-	T& operator[](int ind) { return elements[ind]; }
-	friend istream& operator >> (istream& in, T& element) {
+	~TContainer() { 
+		delete[] elements;
+	}
+	
+	// ----- перегрузки -----
+	T& operator[](int ind) const { return elements[ind]; }
+	bool operator == (const TContainer<T>& element) const {
+		if (size != element.size) return false;
+		for (int i = 0; i < size; i++) {
+			if (elements[i] != element.elements[i]) return false;
+		}
+		return true;
+	}
+	friend istream& operator >> (istream& in, TContainer<T>& element) {
 		in >> element;
-		size += 1;
 		return in;
 	}
-	friend ostream& operator << (istream& out, const T& element) {
+	friend ostream& operator << (istream& out, const TContainer<T>& element) {
 		out << element;
 		return out;
 	}
 
-	int GetPoz() const { return poz; }
+	// ----- геттеры/сеттеры -----
+	int GetPos() const { return pos; }
 	int GetSize() const { return size; }
 	int GetMSize() const { return MaxSize; }
+	void SetSize(int _size) { size = _size; }
 
-	// переход к следущему/передыдущему
-	void next() { poz = (poz + 1) % MaxSize; }
-	void back() { poz = (poz - 1) % MaxSize; }
+	// ----- переход к следующему/передыдущему, сброс -----
+	void next() { pos = (pos + 1) % MaxSize; }
+	void back() { pos = (pos - 1) % MaxSize; }
+	void reset() { pos = 0; }
 
-	// -----вставка/удаление перед/после текущего-----
+	// ----- вставка/удаление перед/после текущего -----
 	void PozIns(const T& element, int n = 0) { // n = 1 для вставки после
 		int tmp = size - 1;
 		if (size == MaxSize) realloc();
-		for (int i = size - 1; i > poz - n; i--) {
+		for (int i = size - 1; i > pos - n; i--) {
 			elements[i + 1] = elements[i];
 			tmp = i;
 		}
-		poz = tmp;
+		pos = tmp;
 		size += 1;
-		elements[poz] = element;
+		elements[pos] = element;
 	}
 	void PozRem(int n = 1) { // n = -1 для удаления после
-		for (int i = poz + n; i < size; i++) {
+		for (int i = pos + n; i < size; i++) {
 			elements[i] = elements[i + 1];
 		}
 		size -= 1;
 	}
 
-	// -----вставка/удаление из любой позиции-----
+	// ----- вставка/удаление из любой позиции -----
 	void insert(const T& element, int index) {
 		if (size == MaxSize) realloc();
 		for (int i = size - 1; i >= index; i--) {
 			elements[i + 1] = elements[i];
 		}
-		poz = index;
+		pos = index;
 		size += 1;
-		elements[poz] = element;
+		elements[pos] = element;
 	}
 	void remove(int index) {
 		for (int i = index; i < size; i++) {
@@ -89,6 +105,16 @@ public:
 		}
 		size -= 1;
 	}
-};  
+
+	// ----- поиск -----
+	long int id(const T& value) const  {
+		for (int i = 0; i < size; i++) {
+			if (elements[i] == value) return i;
+		}
+		return -1;
+	}
+}; 
+
+
 
 #endif

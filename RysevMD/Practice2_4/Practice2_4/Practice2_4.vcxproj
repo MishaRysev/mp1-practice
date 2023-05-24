@@ -129,11 +129,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Products.cpp" />
-    <ClCompile Include="TContainer.cpp" />
+    <ClCompile Include="source.cpp" />
+    <ClCompile Include="TReciept.cpp" />
+    <ClCompile Include="TRecieptLine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Products.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="TContainer.h" />
+    <ClInclude Include="TReciept.h" />
+    <ClInclude Include="TRecieptLine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
