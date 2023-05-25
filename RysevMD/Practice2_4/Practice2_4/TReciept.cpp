@@ -50,10 +50,13 @@ ostream& operator << (ostream& out, const tm* ltm) {
 	return out;
 }
 ostream& operator << (ostream& out, const TReciept& reciept) {
+	out << setw(43) << setfill('_') << " " << setfill(' ') << "\n";
 	for (int i = 0; i < reciept.count; i++) {
-		out << reciept.lines[i] << endl;
+		out <<"|   " << reciept.lines[i] << "|" << endl;
 	}
-	cout << "Total cost: " << reciept.sum << endl;
-	cout << reciept.ltm;
+	out << "|" << setw(41) << setfill(' ') << "|";
+	out << setw(42) << setfill('_') << "" << setfill(' ') << "\n";
+	out << "Total cost: " << reciept.sum << endl;
+	out << reciept.ltm;
 	return out;
 }
