@@ -66,6 +66,7 @@ TProduct::TProduct(long _code, string _name, double _cost, double _disc) {
 TProductBase::TProductBase(string& path) {
 	ifstream in;
 	Pair tmp;
+	string miss;
 	char flag = 1;
 	string miss;
 	in.open(path);
@@ -81,7 +82,11 @@ TProductBase::TProductBase(string& path) {
 		}
 		else { 
 			cout << "File not found" << endl;
+<<<<<<< HEAD
 			getline(in, miss);
+=======
+			getline(cin, miss);
+>>>>>>> c312ec09ce35fb1d5f3d4a16ba8f80d730aa0cd7
 			ReadPath(path);
 			in.open(path);
 		}
