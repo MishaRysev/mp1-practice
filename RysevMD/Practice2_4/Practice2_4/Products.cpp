@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 #include "TContainer.h"
 #include "Products.h"
 #include "shop.h"
@@ -66,6 +67,7 @@ TProductBase::TProductBase(string& path) {
 	ifstream in;
 	Pair tmp;
 	char flag = 1;
+	string miss;
 	in.open(path);
 	do {
 		if (in.is_open()) {
@@ -79,7 +81,9 @@ TProductBase::TProductBase(string& path) {
 		}
 		else { 
 			cout << "File not found" << endl;
+			getline(in, miss);
 			ReadPath(path);
+			in.open(path);
 		}
 	} while (flag == 1);
 }

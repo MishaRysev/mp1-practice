@@ -8,5 +8,6 @@ void ElementSelection(TContainer <Pair>& arr, TProductBase& base);
 void RecieptEditing(TReciept& reciept);
 void instruction();
 void ReadPath(std::string& path);
+void RecPrint(TReciept& rec);
 
 #endif

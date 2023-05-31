@@ -19,7 +19,7 @@ int main() {
 	ElementSelection(arr, base);
 	TReciept reciept(arr);
 
-	cout << reciept;
+	RecPrint(reciept);
 
 	return 0;
 }

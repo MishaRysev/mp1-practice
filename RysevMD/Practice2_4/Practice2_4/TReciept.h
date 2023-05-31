@@ -14,6 +14,7 @@ public:
 
 	void AddLine(const Pair& pair);
 	void DelLine(int index);
+	long int GetCount() const { return count; }
 
 	friend std::ostream& operator << (ostream& out, const TReciept& reciept);
 };

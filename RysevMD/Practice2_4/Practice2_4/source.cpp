@@ -74,6 +74,10 @@ void RecieptEditing(TReciept& reciept) {
 void ReadPath(string& path) {
 	cout << "Enter the path" << endl << ">>> ";
 	cin >> path;
+
+}
+void RecPrint(TReciept& rec) {
+	if (rec.GetCount() > 0) cout << rec;
 }
 
 void instruction() {
